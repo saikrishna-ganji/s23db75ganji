@@ -15,11 +15,11 @@ block content
      p Columns should be in the range of 1 to 10
   - }
   - else{
-     table(class="table")
+     table
       - for(let i=0; i<rows; i++) {
         tr#middle 
          - for(let j=0; j<cols; j++){
-            td= 1+i+(j*rows)
+            td= (((j+1) -i) < 0 )?0:((j+1) -i)
          - }
       - }
   - }
