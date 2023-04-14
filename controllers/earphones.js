@@ -31,3 +31,16 @@ exports.earphones_list = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+    // VIEWS
+// Handle a show all view
+exports.earphones_view_all_Page = async function(req, res) {
+    try{
+        theEarphones = await earphones.find();
+    res.render('earphones', { title: 'earphones Search Results', results: theEarphones });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
