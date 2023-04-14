@@ -3,10 +3,20 @@ var earphones = require('../models/earphones');
 exports.earphones_list = function(req, res) {
 res.send('NOT IMPLEMENTED: earphones list');
 };
-// for a specific earphones.
-exports.earphones_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: earphones detail: ' + req.params.id);
+
+// for a specific earphones. 
+exports.earphones_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await earphones.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
+
+
 // Handle earphones create on POST.
 exports.earphones_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: earphones create POST');
@@ -16,9 +26,27 @@ exports.earphones_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: earphones delete DELETE ' + req.params.id);
 };
 // Handle earphones update form on PUT.
-exports.earphones_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: earphones update PUT' + req.params.id);
-};
+exports.earphones_update_put = async function(req, res) {
+    
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await earphones.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.earphone_name)
+    toUpdate.earphone_name = req.body.earphone_name;
+    if(req.body.earphone_shape) toUpdate.earphone_shape = req.body.earphone_shape;
+    if(req.body.earphone_radius) toUpdate.earphone_radius = req.body.earphone_radius;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+    failed`);
+    }
+    };
+
 
 // List of all earphones
 exports.earphones_list = async function(req, res) {
