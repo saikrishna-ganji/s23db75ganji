@@ -19,3 +19,15 @@ res.send('NOT IMPLEMENTED: earphones delete DELETE ' + req.params.id);
 exports.earphones_update_put = function(req, res) {
 res.send('NOT IMPLEMENTED: earphones update PUT' + req.params.id);
 };
+
+// List of all earphones
+exports.earphones_list = async function(req, res) {
+    try{
+    theEarphones = await earphones.find();
+    res.send(theEarphones);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
