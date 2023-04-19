@@ -22,9 +22,17 @@ exports.earphones_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: earphones create POST');
 };
 // Handle earphones delete form on DELETE.
-exports.earphones_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: earphones delete DELETE ' + req.params.id);
-};
+exports.earphones_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await earphones.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   };
 // Handle earphones update form on PUT.
 exports.earphones_update_put = async function(req, res) {
     
@@ -92,3 +100,59 @@ exports.earphones_create_post = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+
+    // Handle a show one view with id specified by query
+exports.earphones_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await earphones.findById( req.query.id)
+    res.render('earphonesdetail',
+   { title: 'earphones Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+   
+   // Handle building the view for creating a earphones.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.earphones_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('earphonescreate', { title: 'earphones Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+   // Handle building the view for updating a earphones.
+// query provides the id
+exports.earphones_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await earphones.findById(req.query.id)
+    res.render('earphonesupdate', { title: 'earphones Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+   // Handle a delete one view with id from query
+exports.earphones_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await earphones.findById(req.query.id)
+    res.render('earphonesdelete', { title: 'earphones Delete', toShow:
+   result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };

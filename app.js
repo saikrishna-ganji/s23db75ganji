@@ -107,7 +107,7 @@ async function recreateDB(){
   console.log("Third object saved")
   //});
  }
- let reseed = true;
+ let reseed = false;
  if (reseed) { recreateDB();}
  
  module.exports = app;
