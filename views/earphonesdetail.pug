@@ -1,20 +1,23 @@
 extends layout
 block content
- h1= title
- - let earphonesid = toShow._id
- - let earphone_name = toShow.earphone_name
- - let earphone_shape = toShow.earphone_shape
- - let earphone_radius = toShow.earphone_radius
- div
- div.row
- div(class='earphonesAttr mr-3') Earphones ID is:
- div #{earphonesid}
- div.row
- div(class='earphonesAttr mr-3') Earphones name is:
- div #{earphone_name}
- div.row
- div(class='earphonesAttr mr-3') Earphones shape is:
- div #{earphone_shape}
- div.row
- div(class='earphonesAttr mr-3') Earphones radius is:
- div #{earphone_radius}
+    h1= title
+    if (toShow == null) 
+      h2 No instance to detail 
+    else
+    - let earphonesid = toShow._id
+    - let earphone_name = toShow.earphone_name
+    - let earphone_shape = toShow.earphone_shape
+    - let earphone_radius = toShow.earphone_radius
+    div
+    div.row
+    div(class='earphonesAttr mr-3') Earphones ID is:
+    div #{earphonesid}
+    div.row
+    div(class='earphonesAttr mr-3') Earphones name is:
+    div #{earphone_name}
+    div.row
+    div(class='earphonesAttr mr-3') Earphones shape is:
+    div #{earphone_shape}
+    div.row
+    div(class='earphonesAttr mr-3') Earphones radius is:
+    div #{earphone_radius}

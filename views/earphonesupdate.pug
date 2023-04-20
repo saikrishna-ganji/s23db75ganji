@@ -1,9 +1,10 @@
 extends layout 
 
 block content 
-    h1= title 
-
-
+    h1= title
+    if (toShow == null) 
+      h2 No instance to detail 
+    else
     - let earphonesid = toShow._id 
     - let earphones_name = toShow.earphone_name 
     - let earphone_shape  = toShow.earphone_shape 
